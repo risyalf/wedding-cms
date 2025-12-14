@@ -21,6 +21,6 @@ export default defineConfig({
   integrations: [
   //
   sitemap(), tailwind()],
-  output: "server",
+  output: "static",
   adapter: vercel()
 });

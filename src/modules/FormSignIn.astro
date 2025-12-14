@@ -2,6 +2,62 @@
 import { asset, url } from '../lib/data.js';
 ---
 
+<script>
+	import { Notyf } from 'notyf';
+	import api from "../services/axiosApi";
+	import axios from 'axios';
+	import 'notyf/notyf.min.css';
+	
+	const notyf = new Notyf();
+	const login = async (event: SubmitEvent) => {
+		try {
+			event.preventDefault();
+			const form = document.querySelector('form')!;
+			const formData = new FormData(form);
+			const email = String(formData.get('email'));
+			const password = String(formData.get('password'));
+			
+			const response = await api.post('/auth/login', { name, email, password });
+			console.log(response);
+			notyf.success("SUCCESS LOGIN")
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (error.message) {
+					notyf.error({
+						message: error.message.toUpperCase(),
+						position: {x: 'right', y: 'top'},
+						duration: 5000
+					});
+				}
+				else {
+					notyf.error({
+						message: error.response?.data?.message.toUpperCase() ?? 'API ERROR',
+						position: {x: 'right', y: 'top'},
+						duration: 5000
+					});
+				}
+			} else if (error instanceof Error) {
+				notyf.error({
+						message: error.message.toUpperCase(),
+						position: {x: 'right', y: 'top'},
+						duration: 5000
+					});
+			} else {
+				notyf.error({
+						message: "UNKNOW EROR",
+						position: {x: 'right', y: 'top'},
+						duration: 5000
+					});
+			}
+		}
+	}
+	
+	window.addEventListener('DOMContentLoaded', () => {
+		const form = document.querySelector('form');
+		form?.addEventListener('submit', login);
+	});
+	</script>
+
 <div
 	class="w-full flex flex-col items-center justify-center px-6 pt-8 mx-auto pt:mt-0 dark:bg-gray-900"
 >
@@ -9,15 +65,15 @@ import { asset, url } from '../lib/data.js';
 		href="#"
 		class="flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white"
 	>
-		<img src={asset('images/logo.svg')} alt="FlowBite Logo" class="mr-4 h-11" />
-		<span>Flowbite</span>
+		<img src={asset('images/logo.svg')} alt="Nikahyu Logo" class="mr-4 h-11" />
+		<span>Nikahyu</span>
 	</a>
 	<!-- Card -->
 	<div
 		class="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow dark:bg-gray-800"
 	>
 		<h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-			Sign in to platform
+			Sign in
 		</h2>
 		<form class="mt-8 space-y-6" action="#">
 			<div>
@@ -80,6 +136,7 @@ import { asset, url } from '../lib/data.js';
 			>
 			<div class="text-sm font-medium text-gray-500 dark:text-gray-400">
 				Not registered? <a
+					href={url('authentication/sign-up')}
 					class="text-primary-700 hover:underline dark:text-primary-500"
 					>Create account</a
 				>

@@ -4,6 +4,8 @@ import { url } from '../lib/data.js';
 
 import { SITE_TITLE } from './constants.js';
 
+import "../assets/styles/loading.css"
+
 const { class: clazz } = Astro.props;
 ---
 
@@ -41,6 +43,9 @@ const { class: clazz } = Astro.props;
 				document.documentElement.classList.remove('dark');
 			}
 		</script>
+		<script type="module">
+			import '../../src/assets/scripts/loading.js';
+		</script>
 	</head>
 	<body
 		class:list={[
@@ -52,6 +57,9 @@ const { class: clazz } = Astro.props;
 			'dark:scrollbar-track-gray-900 dark:scrollbar-thumb-gray-700',
 		]}
 	>
+		<div id="global-loading" class="loading hidden">
+			<div class="spinner"></div>
+		</div>
 		<slot />
 	</body>
 </html>

@@ -38,7 +38,6 @@
 	"dependencies": {
 		"@astrojs/sitemap": "^1.4.0",
 		"@astrojs/tailwind": "^3.1.3",
-		"@astrojs/vercel": "^9.0.2",
 		"@faker-js/faker": "^7.6.0",
 		"apexcharts": "^3.54.1",
 		"astro": "^2.10.15",
@@ -55,6 +54,7 @@
 		"shiki": "0.14.2"
 	},
 	"devDependencies": {
+		"@astrojs/vercel": "4",
 		"@types/eslint": "^8.56.12",
 		"@typescript-eslint/eslint-plugin": "^5.62.0",
 		"@typescript-eslint/parser": "^5.62.0",
